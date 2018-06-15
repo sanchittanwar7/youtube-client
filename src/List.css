@@ -3,7 +3,7 @@
 	margin: auto;
 }
 
-.channel-card, .video-card{
+.channel-card, .video-card, .playlist-card{
 	display: flex;
 	/*width: 70%;*/
 	/*margin: auto;*/
@@ -14,4 +14,7 @@
 }
 .channel-card div img{
 	border-radius: 50%;
+}
+.playlist-card div img{
+	opacity: 0.5;
 }
