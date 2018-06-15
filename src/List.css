@@ -1,0 +1,17 @@
+.results, .result{
+	width: 70%;
+	margin: auto;
+}
+
+.channel-card, .video-card{
+	display: flex;
+	/*width: 70%;*/
+	/*margin: auto;*/
+}
+
+.video-card:hover {
+	cursor: pointer;
+}
+.channel-card div img{
+	border-radius: 50%;
+}

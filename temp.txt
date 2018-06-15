@@ -1,0 +1,67 @@
+/* global gapi */
+import React, { Component } from 'react';
+
+const API_KEY = 'yCLQssOJNSF6BHS_cyEdxi_-';
+
+
+class App extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			gapiReady: false
+		}
+	}
+
+	loadYoutubeApi() {
+		const script = document.createElement("script");
+		script.src = "https://apis.google.com/js/client.js";
+
+		script.onload = () => {
+			gapi.load('client', () => {
+				gapi.client.setApiKey(API_KEY);
+				gapi.client.load('youtube', 'v3', () => {
+					this.setState({ gapiReady: true });
+				});
+			});
+		};
+
+		document.body.appendChild(script);
+	}
+
+	componentDidMount() {
+		this.loadYoutubeApi();
+	}
+
+	search() {
+		var q = 'script';
+		var request = gapi.client.youtube.search.list({
+			q: q,
+			part: 'snippet'
+		});
+		request.execute(function(response) {
+			var str = JSON.stringify(response.result);
+			// $('#search-container').html('<pre>' + str + '</pre>');
+			console.log(str)
+		});
+	}
+
+	render() {
+		if (this.state.gapiReady) {
+			return (
+				<div>
+				<h1>GAPI is loaded and ready to use.</h1>
+				<button onClick= { () => this.search() }>SEARCH</button>
+				</div>
+				);
+		}
+		else{
+			return(
+				<div>ERROR</div>
+				)
+		}
+	}
+}
+
+export default App;
