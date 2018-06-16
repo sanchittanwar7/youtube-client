@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './List.css'
 import VideoPlay from './VideoPlay'
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap'
-
+import {Link} from 'react-router'
+import {browserHistory} from 'react-router'
 
 class List extends Component {
 
@@ -18,8 +19,11 @@ class List extends Component {
 		}
 
 	render() {
-
-		let results = this.props.data.items || []
+		let results
+		if(this.props.data === null)
+			return(<div></div>)
+		else
+		    results = this.props.data.items || []
 		console.log(results)
 
 		// getDiff(){
@@ -36,18 +40,28 @@ class List extends Component {
 		//   // return Math.round(difference_ms/one_day); 
 		// }
 
-		{
-			if(this.state.clickedId !== null )
-				return(
-					<div>
-					<div>Video</div>
-					<VideoPlay
-						id = {this.state.clickedId}
-						type = {this.state.type}
-					/>
-					</div>
-				)
-			else
+
+
+
+
+
+
+
+
+
+
+
+		// {
+		// 	if(this.state.clickedId !== null )
+		// 		return(
+		// 			<div>
+		// 			<VideoPlay
+		// 				id = {this.state.clickedId}
+		// 				type = {this.state.type}
+		// 			/>
+		// 			</div>
+		// 		)
+		// 	else
 
 		
 			// var one_day, date1_ms, date2_ms, difference_ms, diff
@@ -71,8 +85,8 @@ class List extends Component {
 						let days_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24) % 30)
 						let months_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30) % 12)
 						let years_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30*12))
-						console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
-						let ago = years_ago + 'years ' + months_ago + 'months ' + days_ago + 'days ago'
+						// console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
+						let ago = years_ago + ' years ' + months_ago + ' months ' + days_ago + ' days ago'
 						return(
 
 
@@ -84,14 +98,16 @@ class List extends Component {
 
 								  <Row>
 								    <Col xs={6} md={4}>
-								      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
-								        <h3>{result.snippet.title}</h3>
-								        <p>{result.snippet.description}</p>
-								        <p>
-								          <Button bsStyle="primary">Button</Button>&nbsp;
-								          <Button bsStyle="default">Button</Button>
-								        </p>
-								      </Thumbnail>
+								    	<Link to = {'/channel/' + result.id.channelId}>
+									      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
+									        <h3>{result.snippet.title}</h3>
+									        <p>{result.snippet.description}</p>
+									        <p>
+									          <Button bsStyle="primary">Button</Button>&nbsp;
+									          <Button bsStyle="default">Button</Button>
+									        </p>
+									      </Thumbnail>
+									    </Link>
 								    </Col>
 								  </Row>
 
@@ -100,15 +116,17 @@ class List extends Component {
 								  type === 'video' ?
 								  <Row>
 								    <Col xs={6} md={4}>
-								      <Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
-								        <h3>{result.snippet.title}</h3>
-								        <p>{result.snippet.channelTitle} {ago}</p>
-								        <p>{result.snippet.description}</p>
-								        <p>
-								          <Button bsStyle="primary">Button</Button>&nbsp;
-								          <Button bsStyle="default">Button</Button>
-								        </p>
-								      </Thumbnail>
+								      <Link to = {'/videoplay/'+ type + '/' + result.id.videoId}>
+								      	<Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
+									        <h3>{result.snippet.title}</h3>
+									        <p>{result.snippet.channelTitle} {ago}</p>
+									        <p>{result.snippet.description}</p>
+									        <p>
+									          <Button bsStyle="primary">Button</Button>&nbsp;
+									          <Button bsStyle="default">Button</Button>
+									        </p>
+									      </Thumbnail>
+									   </Link>
 								    </Col>
 								  </Row>
 								:
@@ -158,7 +176,7 @@ class List extends Component {
 				</div>
 		
 			)
-		}
+		// }
 		
 	}
 }
