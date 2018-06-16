@@ -65,3 +65,136 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <div
+							// 	key = {k}
+							// 	className = "result"
+							// >
+							// {
+							// 	type === 'channel' ? 
+							// 		<div className="channel-card">
+							// 			<div>
+							// 			<img
+							// 				src = {result.snippet.thumbnails.medium.url}
+							// 	            alt = "track"
+							// 			/>
+							// 			</div>
+							// 			<div>
+							// 			{result.snippet.title}<br></br>
+							// 			{result.snippet.description}
+							// 			</div>
+							// 		</div>
+							// 	:
+							// 		type === 'video' ?
+							// 			<div className="video-card" onClick = {() => this.setState({clickedId: result.id, type: 'video'})}>
+							// 				<div>
+							// 				<img
+							// 					src = {result.snippet.thumbnails.medium.url}
+							// 		            alt = "track"
+							// 				/>
+							// 				</div>
+							// 				<div>
+							// 				{result.snippet.title}<br></br>
+							// 				{result.snippet.description}
+							// 				</div>
+							// 			</div>
+							// 		:
+							// 			<div className="playlist-card" onClick = {() => this.setState({clickedId: result.id, type: 'playlist'})}>
+							// 				<div>
+							// 				<img
+							// 					src = {result.snippet.thumbnails.medium.url}
+							// 		            alt = "track"
+							// 				/>
+							// 				</div>
+							// 				<div>
+							// 				{result.snippet.title}<br></br>
+							// 				{result.snippet.description}
+							// 				</div>
+							// 			</div>
+							// }
+
+							// </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+												<h3>About {results.pageInfo.totalResults} Results</h3>

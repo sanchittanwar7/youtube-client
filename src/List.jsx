@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './List.css'
 import VideoPlay from './VideoPlay'
+import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap'
+
 
 class List extends Component {
 
@@ -8,13 +10,31 @@ class List extends Component {
 			super(props);
 			this.state = {
 				clickedId: null,
-				type: null
+				type: null, 
+				current_time: new Date(),
+				video_publish_time: null,
+				time_difference: null
 			}
 		}
 
 	render() {
 
-		let results = this.props.data
+		let results = this.props.data.items || []
+		console.log(results)
+
+		// getDiff(){
+		// 			  //Get 1 day in milliseconds
+		//   // var one_day=1000*60*60*24;
+
+		//   // Convert both dates to milliseconds
+		//   // this.setState({time_difference: (this.state.video_publish_time.getTime() - this.state.current_time.getTime())/(1000*60*60*24)}) 
+
+		//   // // Calculate the difference in milliseconds
+		//   // var difference_ms = date2_ms - date1_ms;
+		    
+		//   // // Convert back to days and return
+		//   // return Math.round(difference_ms/one_day); 
+		// }
 
 		{
 			if(this.state.clickedId !== null )
@@ -30,63 +50,111 @@ class List extends Component {
 			else
 
 		
-
+			// var one_day, date1_ms, date2_ms, difference_ms, diff
 			return (
+				<div className="list">
+					{
+						this.props.data.pageInfo !== undefined ?
+							<div><h4>About {this.props.data.pageInfo.totalResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Results</h4><hr></hr></div>
+						:
+							<h3></h3>
 
-				<div className = "results">
+					}
+					<Grid>
 					{results.map((result, k) => {
-						let type = result.kind.split('#')[1]
+						let type = result.id.kind.split('#')[1]
+						let year = result.snippet.publishedAt.split('-')[0]
+						let month = result.snippet.publishedAt.split('-')[1]
+						let day = result.snippet.publishedAt.split('-')[2].substring(0,2)
+						let d1 = new Date()
+						let d2 = new Date(year, month, day)
+						let days_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24) % 30)
+						let months_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30) % 12)
+						let years_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30*12))
+						console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
+						let ago = years_ago + 'years ' + months_ago + 'months ' + days_ago + 'days ago'
 						return(
-							<div
-								key = {k}
-								className = "result"
-							>
+
+
+							<div>
+
+
 							{
-								type === 'channel' ? 
-									<div className="channel-card">
-										<div>
-										<img
-											src = {result.thumbnails.medium.url}
-								            alt = "track"
-										/>
-										</div>
-										<div>
-										{result.title}<br></br>
-										{result.description}
-										</div>
-									</div>
+								type === 'channel' ?
+
+								  <Row>
+								    <Col xs={6} md={4}>
+								      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
+								        <h3>{result.snippet.title}</h3>
+								        <p>{result.snippet.description}</p>
+								        <p>
+								          <Button bsStyle="primary">Button</Button>&nbsp;
+								          <Button bsStyle="default">Button</Button>
+								        </p>
+								      </Thumbnail>
+								    </Col>
+								  </Row>
+
 								:
-									type === 'video' ?
-										<div className="video-card" onClick = {() => this.setState({clickedId: result.id, type: 'video'})}>
-											<div>
-											<img
-												src = {result.thumbnails.medium.url}
-									            alt = "track"
-											/>
-											</div>
-											<div>
-											{result.title}<br></br>
-											{result.description}
-											</div>
-										</div>
-									:
-										<div className="playlist-card" onClick = {() => this.setState({clickedId: result.id, type: 'playlist'})}>
-											<div>
-											<img
-												src = {result.thumbnails.medium.url}
-									            alt = "track"
-											/>
-											</div>
-											<div>
-											{result.title}<br></br>
-											{result.description}
-											</div>
-										</div>
+
+								  type === 'video' ?
+								  <Row>
+								    <Col xs={6} md={4}>
+								      <Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
+								        <h3>{result.snippet.title}</h3>
+								        <p>{result.snippet.channelTitle} {ago}</p>
+								        <p>{result.snippet.description}</p>
+								        <p>
+								          <Button bsStyle="primary">Button</Button>&nbsp;
+								          <Button bsStyle="default">Button</Button>
+								        </p>
+								      </Thumbnail>
+								    </Col>
+								  </Row>
+								:
+								  <Row>
+								    <Col xs={6} md={4}>
+								      <Thumbnail className = "playlist-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.playlistId, type: 'playlist'})}>
+								        <h3>{result.snippet.title}</h3>
+								        <p>{result.snippet.channelTitle}</p>
+								        <p>{result.snippet.description}</p>
+								        <p>
+								          <Button bsStyle="primary">Button</Button>&nbsp;
+								          <Button bsStyle="default">Button</Button>
+								        </p>
+								      </Thumbnail>
+								    </Col>
+								  </Row>							
 							}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							
+
+
+
+
+
 							</div>
+
+
 						)
 					})}
+					</Grid>
 				</div>
 		
 			)

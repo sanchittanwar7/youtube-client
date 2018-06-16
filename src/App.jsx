@@ -3,18 +3,21 @@ import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
 import List from './List'
 import { bake_cookie, read_cookie} from 'sfcookies';
 
+const api_key = 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
+
+
 // var YouTube = require('youtube-node');
 
 // var youTube = new YouTube();
 
 // youTube.setKey('AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs');
 
-var search = require('youtube-search');
+// var search = require('youtube-search');
 
-var opts = {
-	maxResults: 50,
-	key: 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
-};
+// var opts = {
+// 	maxResults: 50,
+// 	key: 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
+// };
 
 class App extends Component {
 
@@ -30,15 +33,15 @@ class App extends Component {
 	
 
 	search() {
-		var app = this
+		// var app = this
 		var title = read_cookie('title');
-		search(title, opts, function(err, results) {
-			if(err) {
-				return console.log(err);
-			}
-			console.dir(results);
-			app.setState({data: results})
-		});
+		// search(title, opts, function(err, results) {
+		// 	if(err) {
+		// 		return console.log(err);
+		// 	}
+		// 	console.dir(results);
+		// 	app.setState({data: results})
+		// });
 		// console.log("YO")
 		// youTube.search('The Script', 50, function(error, result) {
 		// 	if (error) {
@@ -48,6 +51,17 @@ class App extends Component {
 		// 		console.log(result);
 		// 	}
 		// });
+		var FETCH_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${title}&key=${api_key}&maxResults=50`
+		fetch(FETCH_URL, {
+			method: 'GET'
+		})
+		.then(response => response.json())
+		.then(json => {
+			console.log(json)
+			this.setState({data: json})
+			// const artist = json.artist;
+			// this.setState({artist, stats: artist.stats, bio: artist.bio, images: artist.image});
+		});
 	}
 
 	render() {

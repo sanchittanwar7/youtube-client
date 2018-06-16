@@ -12,7 +12,7 @@ class VideoPlay extends Component {
 		else
 			URL = `http://www.youtube.com/embed?listType=playlist&list=${id}&autoplay=1&loop=1`
 		return(
-			<iframe width="1280" height="720" src={URL} frameborder="0" allowfullscreen></iframe>
+			<iframe width="1280" height="720" src={URL} frameBorder="0" allowFullScreen></iframe>
 		)
 	}
 }
