@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './List.css'
-import VideoPlay from './VideoPlay'
+// import VideoPlay from './VideoPlay'
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap'
 import {Link} from 'react-router'
-import {browserHistory} from 'react-router'
+// import {browserHistory} from 'react-router'
 
 class List extends Component {
 
@@ -98,16 +98,15 @@ class List extends Component {
 
 								  <Row>
 								    <Col xs={6} md={4}>
-								    	<Link to = {'/channel/' + result.id.channelId}>
 									      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
 									        <h3>{result.snippet.title}</h3>
 									        <p>{result.snippet.description}</p>
 									        <p>
-									          <Button bsStyle="primary">Button</Button>&nbsp;
-									          <Button bsStyle="default">Button</Button>
+									          <Link to = {'/channel/' + result.snippet.channelId}>
+									          		<Button bsStyle="default">Visit Channel</Button>
+									          </Link>
 									        </p>
 									      </Thumbnail>
-									    </Link>
 								    </Col>
 								  </Row>
 
@@ -116,17 +115,20 @@ class List extends Component {
 								  type === 'video' ?
 								  <Row>
 								    <Col xs={6} md={4}>
-								      <Link to = {'/videoplay/'+ type + '/' + result.id.videoId}>
 								      	<Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
 									        <h3>{result.snippet.title}</h3>
 									        <p>{result.snippet.channelTitle} {ago}</p>
 									        <p>{result.snippet.description}</p>
 									        <p>
-									          <Button bsStyle="primary">Button</Button>&nbsp;
-									          <Button bsStyle="default">Button</Button>
+									        	<Link to = {'/videoplay/'+ type + '/' + result.id.videoId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
+										          <Button bsStyle="danger">Play Video</Button>
+										        </Link>
+									          &nbsp;
+									          	<Link to = {'/channel/' + result.snippet.channelId}>
+									          		<Button bsStyle="default">Visit Channel</Button>
+									          	</Link>
 									        </p>
 									      </Thumbnail>
-									   </Link>
 								    </Col>
 								  </Row>
 								:
@@ -137,9 +139,14 @@ class List extends Component {
 								        <p>{result.snippet.channelTitle}</p>
 								        <p>{result.snippet.description}</p>
 								        <p>
-								          <Button bsStyle="primary">Button</Button>&nbsp;
-								          <Button bsStyle="default">Button</Button>
-								        </p>
+									        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId}>
+										          <Button bsStyle="danger">Play Playlist</Button>
+										        </Link>
+									          &nbsp;
+									          	<Link to = {'/channel/' + result.snippet.channelId}>
+									          		<Button bsStyle="default">Visit Channel</Button>
+									          	</Link>
+									        </p>
 								      </Thumbnail>
 								    </Col>
 								  </Row>							

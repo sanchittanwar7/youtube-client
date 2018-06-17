@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import List from './List'
+import './Channel.css'
 
 const api_key = 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
 
@@ -16,6 +17,7 @@ class Channel extends Component {
 		console.log(this.props.params.id)
 		const CHANNEL_URL = `https://www.googleapis.com/youtube/v3/channels?part=snippet&key=${api_key}&id=${this.props.params.id}`
 		const VIDEO_URL = `https://www.googleapis.com/youtube/v3/search?key=${api_key}&channelId=${this.props.params.id}&part=snippet,id&order=date&maxResults=50`
+
 		fetch(VIDEO_URL, {
 			method: 'GET'
 		})
@@ -39,12 +41,32 @@ class Channel extends Component {
 	}
 
 	render() {
-		let id = this.props.params.id
-		let d = new Date()
+
 		return(
-			<List
-				data = {this.state.video_info}
-			/>
+			<div>
+				{
+					this.state.channel_info === null ?
+						<div></div>
+					:
+						<div className = "header">
+							<div className = "header-image">
+								<img 
+									src = {this.state.channel_info.items[0].snippet.thumbnails.medium.url}
+									alt = ""
+								/>
+							</div>
+							<div className = "header-info">
+								<h2>{this.state.channel_info.items[0].snippet.localized.title}</h2>
+								<h4>{this.state.channel_info.items[0].snippet.localized.description}</h4>
+							</div>
+							<hr></hr>
+						</div>					
+				}
+
+				<List
+					data = {this.state.video_info}
+				/>
+			</div>
 		)
 	}
 }

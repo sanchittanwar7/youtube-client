@@ -1,0 +1,16 @@
+.related-video-card{
+	width: 20vw;
+	margin: 10px;
+	background-color: #242424;
+	padding: 15px;
+	height: 35vh;
+
+}
+
+.related-video-card h3{
+	color: #d6d6d6;
+}
+
+.related-video-card p{
+	color: #939393;
+}

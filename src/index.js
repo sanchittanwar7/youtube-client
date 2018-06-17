@@ -9,7 +9,7 @@ ReactDOM.render(
 	
 	<Router path = '/' history = {browserHistory} >
 		<Route path = '/' component = {App} />
-		<Route path = '/videoplay/:type/:id' component = {VideoPlay} />
+		<Route path = '/videoplay/:type/:id/:cname/:cid' component = {VideoPlay} />
 		<Route path = '/channel/:id' component = {Channel} />
 	</Router>, document.getElementById('root')
 );
