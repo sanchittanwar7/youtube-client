@@ -46,11 +46,19 @@ class VideoPlay extends Component {
 						</Link>
 
 				</div>
-					<h2> Related Videos</h2><hr></hr>
-				<RelatedVideos
-					className = "related-video"
-					videos = {this.state.related_video}
-				/>
+				{
+					this.props.params.type === 'video' ?
+						<div>
+						<h2> Related Videos</h2><hr></hr>
+						<RelatedVideos
+							className = "related-video"
+							videos = {this.state.related_video}
+						/>
+						</div>
+						:
+						<div></div>
+				}
+				
 			</div>
 		)
 	}

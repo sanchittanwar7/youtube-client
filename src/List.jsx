@@ -139,7 +139,7 @@ class List extends Component {
 								        <p>{result.snippet.channelTitle}</p>
 								        <p>{result.snippet.description}</p>
 								        <p>
-									        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId}>
+									        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
 										          <Button bsStyle="danger">Play Playlist</Button>
 										        </Link>
 									          &nbsp;
