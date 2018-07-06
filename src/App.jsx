@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
 import List from './List'
+import Trending from './Trending'
 import { bake_cookie, read_cookie} from 'sfcookies';
 
 const api_key = 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
@@ -26,8 +27,23 @@ class App extends Component {
 
 		this.state = {
 			query: read_cookie('title'),
-			data: []
+			data: [],
+			trending_videos: []
 		}
+	}
+
+	componentWillMount() {
+		let FETCH_URL = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=IN&maxResults=25&key=${api_key}`
+		fetch(FETCH_URL, {
+			method: 'GET'
+		})
+		.then(response => response.json())
+		.then(json => {
+			console.log(json)
+			this.setState({trending_videos: json})
+			// const artist = json.artist;
+			// this.setState({artist, stats: artist.stats, bio: artist.bio, images: artist.image});
+		});
 	}
 
 	
@@ -88,9 +104,18 @@ class App extends Component {
 					</InputGroup>
 				</FormGroup>
 
-				<List 
-					data = {this.state.data}
-				/>
+				{
+					this.state.data.length != 0 ? 
+					<List 
+						data = {this.state.data}
+					/>
+					:
+					<List
+						data = {this.state.trending_videos}
+					/>
+				}
+
+				
 			</div>
 		);
 

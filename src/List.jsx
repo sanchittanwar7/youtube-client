@@ -20,11 +20,12 @@ class List extends Component {
 
 	render() {
 		let results
+		// console.log(this.props.data)
 		if(this.props.data === null)
 			return(<div></div>)
 		else
 		    results = this.props.data.items || []
-		console.log(results)
+		// console.log(results)
 
 		// getDiff(){
 		// 			  //Get 1 day in milliseconds
@@ -76,7 +77,7 @@ class List extends Component {
 					}
 					<Grid>
 					{results.map((result, k) => {
-						let type = result.id.kind.split('#')[1]
+						let type = result.id.kind == undefined ? result.kind.split('#')[1] : result.id.kind.split('#')[1]
 						let year = result.snippet.publishedAt.split('-')[0]
 						let month = result.snippet.publishedAt.split('-')[1]
 						let day = result.snippet.publishedAt.split('-')[2].substring(0,2)
@@ -87,6 +88,7 @@ class List extends Component {
 						let years_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30*12))
 						// console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
 						let ago = years_ago + ' years ' + months_ago + ' months ' + days_ago + ' days ago'
+						let id = result.id.videoId == undefined ? result.id : result.id.videoId
 						return(
 
 
@@ -120,7 +122,7 @@ class List extends Component {
 									        <p>{result.snippet.channelTitle} {ago}</p>
 									        <p>{result.snippet.description}</p>
 									        <p>
-									        	<Link to = {'/videoplay/'+ type + '/' + result.id.videoId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
+									        	<Link to = {'/videoplay/'+ type + '/' + id + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
 										          <Button bsStyle="danger">Play Video</Button>
 										        </Link>
 									          &nbsp;
