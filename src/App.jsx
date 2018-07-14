@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
 import List from './List'
-import Trending from './Trending'
+// import Trending from './Trending'
 import { bake_cookie, read_cookie} from 'sfcookies';
+import './App.css'
+
 
 const api_key = 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
 
@@ -26,7 +28,7 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			query: read_cookie('title'),
+			query: '',
 			data: [],
 			trending_videos: []
 		}
@@ -84,7 +86,7 @@ class App extends Component {
 
 		return (
 			<div>
-				<FormGroup>
+				<FormGroup className="form">
 					<InputGroup>
 						<FormControl
 							type = "text"
