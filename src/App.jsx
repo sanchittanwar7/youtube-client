@@ -4,6 +4,7 @@ import List from './List'
 // import Trending from './Trending'
 import { bake_cookie, read_cookie} from 'sfcookies';
 import './App.css'
+				
 
 
 const api_key = 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
@@ -107,7 +108,7 @@ class App extends Component {
 				</FormGroup>
 
 				{
-					this.state.data.length != 0 ? 
+					this.state.data.length !== 0 ? 
 					<List 
 						data = {this.state.data}
 					/>
@@ -116,8 +117,7 @@ class App extends Component {
 						data = {this.state.trending_videos}
 					/>
 				}
-
-				
+			
 			</div>
 		);
 

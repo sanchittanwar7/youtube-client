@@ -7,12 +7,11 @@ import './RelatedVideos.css'
 class RelatedVideos extends Component {
 	constructor(props) {
 		super(props);
-
 	}
 
 	render() {
 		let {videos} = this.props
-		console.log(this.props)
+		// console.log(this.props)
 		let type = 'video'
 		{
 			if(this.props.videos === null)

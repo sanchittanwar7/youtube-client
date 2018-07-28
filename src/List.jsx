@@ -77,7 +77,7 @@ class List extends Component {
 					}
 					<Grid>
 					{results.map((result, k) => {
-						let type = result.id.kind == undefined ? result.kind.split('#')[1] : result.id.kind.split('#')[1]
+						let type = result.id.kind === undefined ? result.kind.split('#')[1] : result.id.kind.split('#')[1]
 						let year = result.snippet.publishedAt.split('-')[0]
 						let month = result.snippet.publishedAt.split('-')[1]
 						let day = result.snippet.publishedAt.split('-')[2].substring(0,2)
@@ -88,7 +88,7 @@ class List extends Component {
 						let years_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30*12))
 						// console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
 						let ago = years_ago + ' years ' + months_ago + ' months ' + days_ago + ' days ago'
-						let id = result.id.videoId == undefined ? result.id : result.id.videoId
+						let id = result.id.videoId === undefined ? result.id : result.id.videoId
 						return(
 
 
