@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './VideoPlay.css'
-import { Button } from 'react-bootstrap'
+import { Button, DropdownButton, MenuItem } from 'react-bootstrap'
+import { Player } from 'video-react';
 import {Link} from 'react-router'
 import RelatedVideos from './RelatedVideos'
 import Alert from 'react-s-alert';
@@ -17,7 +18,8 @@ class VideoPlay extends Component {
 		super(props);
 		this.state = {
 			related_video: null,
-			URL: ''
+			URL: '',
+			format: ''
 		}
 	}
 
@@ -41,8 +43,8 @@ class VideoPlay extends Component {
 	            effect: 'bouncyflip',
 	            timeout: 5000
 	    });
-		// console.log(`https://www.youtube.com/embed/${this.props.params.id}`)
-		var url = `http://127.0.0.1:3001/download/${this.props.params.id}`
+		var url = `http://127.0.0.1:3001/download/${this.props.params.id}/${this.state.format}`
+		console.log(url)
 		fetch(url, {
 			method: 'GET',
 			mode: 'no-cors'
@@ -69,13 +71,22 @@ class VideoPlay extends Component {
 		return(
 			<div className = "video">
 				<div className = "player">
-
 					<iframe width="1280" height="720" src={URL} frameBorder="0" allowFullScreen></iframe>
-					<div style = {{display: 'flex', justifyContent: 'space-between'}}>
+					<div style = {{display: 'flex', justifyContent: 'space-between', 'marginTop': '25px'}}>
 			          	<Link to = {'/channel/' + this.props.params.cid}>
 							<h2>{this.props.params.cname}</h2>
 						</Link>
-						<Button onClick = {() => {this.download()}} bsStyle="danger">Download</Button>
+						<DropdownButton
+							bsStyle='danger'
+					      title='Download'
+					      id='download-dropbox'
+					    >
+					      <MenuItem onClick = {() => {this.setState({format: 'best'},() => {this.download()}); }}>Best Video</MenuItem>
+					      <MenuItem onClick = {() => {this.setState({format: '18'},() => {this.download()}); }}>Average Video</MenuItem>
+					      <MenuItem onClick = {() => {this.setState({format: 'worst'},() => {this.download()}); }}>Worst Video</MenuItem>
+					      <MenuItem divider />
+					      <MenuItem onClick = {() => {this.setState({format: 'bestaudio'},() => {this.download()}); }}>Audio</MenuItem>
+					    </DropdownButton>
 					</div>
 
 				</div>
