@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './List.css'
 // import VideoPlay from './VideoPlay'
-import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap'
+import { Grid, Row, Col, Thumbnail, Button} from 'react-bootstrap'
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import {Link} from 'react-router'
 // import {browserHistory} from 'react-router'
 
@@ -67,15 +68,15 @@ class List extends Component {
 		
 			// var one_day, date1_ms, date2_ms, difference_ms, diff
 			return (
-				<div className="list">
+					
+					<div className="list">
 					{
 						this.props.data.pageInfo !== undefined ?
-							<div><h4>About {this.props.data.pageInfo.totalResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Results</h4><hr></hr></div>
+							<div style={{marginLeft: 10}}><h4>About {this.props.data.pageInfo.totalResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Results</h4><hr></hr></div>
 						:
 							<h3></h3>
 
 					}
-					<Grid>
 					{results.map((result, k) => {
 						let type = result.id.kind === undefined ? result.kind.split('#')[1] : result.id.kind.split('#')[1]
 						let year = result.snippet.publishedAt.split('-')[0]
@@ -98,61 +99,102 @@ class List extends Component {
 							{
 								type === 'channel' ?
 
-								  <Row>
-								    <Col xs={6} md={4}>
-									      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
-									        <h3>{result.snippet.title}</h3>
-									        <p>{result.snippet.description}</p>
-									        <p>
-									          <Link to = {'/channel/' + result.snippet.channelId}>
-									          		<Button bsStyle="default">Visit Channel</Button>
-									          </Link>
-									        </p>
-									      </Thumbnail>
-								    </Col>
-								  </Row>
+								  // <Row>
+								  //   <Col xs={6} md={4}>
+									 //      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
+									 //        <h3>{result.snippet.title}</h3>
+									 //        <p>{result.snippet.description}</p>
+									 //        <p>
+									 //          <Link to = {'/channel/' + result.snippet.channelId}>
+									 //          		<Button bsStyle="default">Visit Channel</Button>
+									 //          </Link>
+									 //        </p>
+									 //      </Thumbnail>
+								  //   </Col>
+								  // </Row>
+								  <Card className = "channel-card">
+							        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
+							        <CardBody className='body'>
+							          <CardTitle className='title'>{result.snippet.title}</CardTitle>
+							          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
+							        	<Link to = {'/channel/' + result.snippet.channelId}>
+							          		<Button bsStyle="default">Visit Channel</Button>
+							          </Link>
+							        
+							        </CardBody>
+							      </Card>
 
 								:
 
 								  type === 'video' ?
-								  <Row>
-								    <Col xs={6} md={4}>
-								      	<Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
-									        <h3>{result.snippet.title}</h3>
-									        <p>{result.snippet.channelTitle} {ago}</p>
-									        <p>{result.snippet.description}</p>
-									        <p>
-									        	<Link to = {'/videoplay/'+ type + '/' + id + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
-										          <Button bsStyle="danger">Play Video</Button>
-										        </Link>
-									          &nbsp;
-									          	<Link to = {'/channel/' + result.snippet.channelId}>
-									          		<Button bsStyle="default">Visit Channel</Button>
-									          	</Link>
-									        </p>
-									      </Thumbnail>
-								    </Col>
-								  </Row>
+								  // <Row>
+								  //   <Col xs={6} md={4}>
+								  //     	<Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
+									 //        <h3>{result.snippet.title}</h3>
+									 //        <p>{result.snippet.channelTitle} {ago}</p>
+									 //        <p>
+									 //        	<Link to = {'/videoplay/'+ type + '/' + id + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
+										//           <Button bsStyle="danger">Play Video</Button>
+										//         </Link>
+									 //          &nbsp;
+									 //          	<Link to = {'/channel/' + result.snippet.channelId}>
+									 //          		<Button bsStyle="default">Visit Channel</Button>
+									 //          	</Link>
+									 //        </p>
+									 //      </Thumbnail>
+								  //   </Col>
+								  // </Row>
+								  <Card className = "video-card">
+							        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
+							        <CardBody className='body'>
+							          <CardTitle className='title'>{result.snippet.title}</CardTitle>
+							          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
+							        	<Link to = {'/videoplay/'+ type + '/' + id + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
+								          <Button bsStyle="danger">Play Video</Button>
+								        </Link>
+							          &nbsp;
+							          	<Link to = {'/channel/' + result.snippet.channelId}>
+							          		<Button bsStyle="default">Visit Channel</Button>
+							          	</Link>
+							        
+							        </CardBody>
+							      </Card>
 								:
-								  <Row>
-								    <Col xs={6} md={4}>
-								      <Thumbnail className = "playlist-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.playlistId, type: 'playlist'})}>
-								        <h3>{result.snippet.title}</h3>
-								        <p>{result.snippet.channelTitle}</p>
-								        <p>{result.snippet.description}</p>
-								        <p>
-									        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
-										          <Button bsStyle="danger">Play Playlist</Button>
-										        </Link>
-									          &nbsp;
-									          	<Link to = {'/channel/' + result.snippet.channelId}>
-									          		<Button bsStyle="default">Visit Channel</Button>
-									          	</Link>
-									        </p>
-								      </Thumbnail>
-								    </Col>
-								  </Row>							
+								  // <Row>
+								  //   <Col xs={6} md={4}>
+								  //     <Thumbnail className = "playlist-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.playlistId, type: 'playlist'})}>
+								  //       <h3>{result.snippet.title}</h3>
+								  //       <p>{result.snippet.channelTitle}</p>
+								  //       <p>{result.snippet.description}</p>
+								  //       <p>
+									 //        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
+										//           <Button bsStyle="danger">Play Playlist</Button>
+										//         </Link>
+									 //          &nbsp;
+									 //          	<Link to = {'/channel/' + result.snippet.channelId}>
+									 //          		<Button bsStyle="default">Visit Channel</Button>
+									 //          	</Link>
+									 //        </p>
+								  //     </Thumbnail>
+								  //   </Col>
+								  // </Row>	
+								  <Card className = "playlist-card">
+							        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
+							        <CardBody className='body'>
+							          <CardTitle className='title'>{result.snippet.title}</CardTitle>
+							          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
+							        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
+								          <Button bsStyle="danger">Play Playlist</Button>
+								        </Link>
+							          &nbsp;
+							          	<Link to = {'/channel/' + result.snippet.channelId}>
+							          		<Button bsStyle="default">Visit Channel</Button>
+							          	</Link>
+							        
+							        </CardBody>
+							      </Card>						
 							}
+							<hr></hr>
 
 
 
@@ -178,11 +220,9 @@ class List extends Component {
 
 							</div>
 
-
 						)
 					})}
-					</Grid>
-				</div>
+					</div>
 		
 			)
 		// }

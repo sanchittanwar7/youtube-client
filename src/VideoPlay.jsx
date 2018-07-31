@@ -73,7 +73,7 @@ class VideoPlay extends Component {
 				<div className = "player">
 					<iframe width="1280" height="720" src={URL} frameBorder="0" allowFullScreen></iframe>
 					<div style = {{display: 'flex', justifyContent: 'space-between', 'marginTop': '25px'}}>
-			          	<Link to = {'/channel/' + this.props.params.cid}>
+			          	<Link to = {'/channel/' + this.props.params.cid} style={{textDecoration: 'none'}}>
 							<h2>{this.props.params.cname}</h2>
 						</Link>
 						<DropdownButton

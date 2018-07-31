@@ -1,40 +1,62 @@
 .list{
-	width: 70%;
+	width: 60%;
 	margin: auto;
+	background-color: #242424;
+	padding-top: 10px;
 }
 
 .channel-card, .video-card, .playlist-card{
 	display: flex;
-	width: 60vw;
-	background-color: #242424;
-	padding: 15px;
-	height: 30vh;
+	/*float: left;*/
+	padding-right: 10px;
+	/*margin: auto;*/
+	width: 100%;
+	min-width: 550px;
+	height: 200px;
+	word-break: break-all;
+	overflow: hidden;
+	border: 0px solid black;
+	margin-bottom: 20px;
+}
 
+hr{
+	width: 98%;
 }
 
 .channel-card h3, .video-card h3, .playlist-card h3{
 	color: #d6d6d6;
 }
 
-.channel-card p, .video-card p, .playlist-card p{
-	color: #939393;
-	width: 800px;
-	text-overflow: ellipsis;
-    white-space: nowrap;
-  	overflow: hidden;
+.image{
+	flex: 0 0 50px;
 }
 
-.video-card:hover {
-	cursor: pointer;
+.body{
+	flex: 1;
+	margin-left: 10px;	
 }
-.channel-card div img{
-	border-radius: 50%;
+
+.title{
+	color: #d6d6d6;
+	font-size: 1.5em;
 }
-.playlist-card div img{
-	opacity: 0.5;
+
+.sub-title{
+	color: #939393;
 }
+
+.channel-card p, .video-card p, .playlist-card p{
+	color: #939393;
+}
+
 h4{
 	color: white;
+}
+
+@media screen and (max-width: 1000px) {
+  .list{
+  	width: 100%;
+  }
 }
 
 

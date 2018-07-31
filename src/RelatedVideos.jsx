@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap'
 import {Link} from 'react-router'
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+
 import './RelatedVideos.css'
 
  
@@ -19,7 +21,7 @@ class RelatedVideos extends Component {
 			else
 		
 		return(
-			<Grid>
+			<Grid className='Grid'>
 			  <Row>
 
 			{
@@ -36,21 +38,38 @@ class RelatedVideos extends Component {
 					// console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
 					let ago = years_ago + ' years ' + months_ago + ' months ' + days_ago + ' days ago'
 					return(
+						    // <Col xs={6} md={4}>
+						    //   	<Thumbnail className = "related-video-card" src={result.snippet.thumbnails.default.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
+							   //      <h3>{result.snippet.title}</h3>
+							   //      <p>{result.snippet.channelTitle} {ago}</p>
+							   //      <p>
+							   //      	<Link to = {'/videoplay/'+ type + '/' + result.id.videoId}>
+								  //         <Button bsStyle="danger">Play Video</Button>
+								  //       </Link>
+							   //        &nbsp;
+							   //        	<Link to = {'/channel/' + result.snippet.channelId}>
+							   //        		<Button bsStyle="default">Visit Channel</Button>
+							   //        	</Link>
+							   //      </p>
+							   //  </Thumbnail>
+						    // </Col>
 						    <Col xs={6} md={4}>
-						      	<Thumbnail className = "related-video-card" src={result.snippet.thumbnails.default.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
-							        <h3>{result.snippet.title}</h3>
-							        <p>{result.snippet.channelTitle} {ago}</p>
-							        <p>
-							        	<Link to = {'/videoplay/'+ type + '/' + result.id.videoId}>
-								          <Button bsStyle="danger">Play Video</Button>
-								        </Link>
-							          &nbsp;
-							          	<Link to = {'/channel/' + result.snippet.channelId}>
-							          		<Button bsStyle="default">Visit Channel</Button>
-							          	</Link>
-							        </p>
-							    </Thumbnail>
-						    </Col>
+						    <Card className = "related-video-card">
+					        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
+					        <CardBody className='body'>
+					          <CardTitle className='title'>{result.snippet.title}</CardTitle>
+					          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
+					        	<Link to = {'/videoplay/'+ type + '/' + result.id.videoId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
+					             <Button bsStyle="danger">Play Video</Button>
+					           </Link>
+				             &nbsp;
+				             	<Link to = {'/channel/' + result.snippet.channelId}>
+				             		<Button bsStyle="default">Visit Channel</Button>
+				             	</Link>
+					        
+					        </CardBody>
+					      </Card>
+					      </Col>
 					)
 				})
 			}

@@ -1,14 +1,15 @@
 .related-video-card{
 	width: 20vw;
-	margin: 10px;
+	min-width: 350px;
+	margin-bottom: 8px;
 	background-color: #242424;
-	padding: 15px;
-	height: 35vh;
-
+	padding: 16px;
+	height: 400px;
 }
 
 .related-video-card h3{
 	color: #d6d6d6;
+	
 }
 
 .related-video-card p{
