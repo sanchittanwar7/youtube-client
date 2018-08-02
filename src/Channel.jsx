@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import List from './List'
 import './Channel.css'
+import Header from './Header'
 
 const api_key = 'AIzaSyBHN06Z3do8vR6k8uio_BMqQzPjm-ECFqs'
 
@@ -44,6 +45,9 @@ class Channel extends Component {
 
 		return(
 			<div>
+				<Header 
+					no = 'true'	
+				/>
 				{
 					this.state.channel_info === null ?
 						<div></div>
@@ -51,15 +55,14 @@ class Channel extends Component {
 						<div className = "header">
 							<div className = "header-image">
 								<img 
-									src = {this.state.channel_info.items[0].snippet.thumbnails.medium.url}
+									src = {this.state.channel_info.items[0].snippet.thumbnails.default.url}
 									alt = ""
 								/>
 							</div>
 							<div className = "header-info">
 								<h2>{this.state.channel_info.items[0].snippet.localized.title}</h2>
-								<h4>{this.state.channel_info.items[0].snippet.localized.description}</h4>
+								<p>{this.state.channel_info.items[0].snippet.localized.description}</p>
 							</div>
-							<hr></hr>
 						</div>					
 				}
 

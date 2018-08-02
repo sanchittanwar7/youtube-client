@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import './List.css'
-// import VideoPlay from './VideoPlay'
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { Grid, Row, Col, Thumbnail, Button} from 'react-bootstrap'
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import {Link} from 'react-router'
-// import {browserHistory} from 'react-router'
 
 class List extends Component {
 
@@ -21,52 +20,10 @@ class List extends Component {
 
 	render() {
 		let results
-		// console.log(this.props.data)
 		if(this.props.data === null)
 			return(<div></div>)
 		else
 		    results = this.props.data.items || []
-		// console.log(results)
-
-		// getDiff(){
-		// 			  //Get 1 day in milliseconds
-		//   // var one_day=1000*60*60*24;
-
-		//   // Convert both dates to milliseconds
-		//   // this.setState({time_difference: (this.state.video_publish_time.getTime() - this.state.current_time.getTime())/(1000*60*60*24)}) 
-
-		//   // // Calculate the difference in milliseconds
-		//   // var difference_ms = date2_ms - date1_ms;
-		    
-		//   // // Convert back to days and return
-		//   // return Math.round(difference_ms/one_day); 
-		// }
-
-
-
-
-
-
-
-
-
-
-
-
-		// {
-		// 	if(this.state.clickedId !== null )
-		// 		return(
-		// 			<div>
-		// 			<VideoPlay
-		// 				id = {this.state.clickedId}
-		// 				type = {this.state.type}
-		// 			/>
-		// 			</div>
-		// 		)
-		// 	else
-
-		
-			// var one_day, date1_ms, date2_ms, difference_ms, diff
 			return (
 					
 					<div className="list">
@@ -87,38 +44,19 @@ class List extends Component {
 						let days_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24) % 30)
 						let months_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30) % 12)
 						let years_ago = Math.floor((d1.getTime() - d2.getTime())/(1000*60*60*24*30*12))
-						// console.log(years_ago + 'years' + months_ago + 'months' + days_ago + 'days ago')
 						let ago = years_ago + ' years ' + months_ago + ' months ' + days_ago + ' days ago'
 						let id = result.id.videoId === undefined ? result.id : result.id.videoId
 						return(
-
-
-							<div>
-
-
+							<div key={k}>
 							{
 								type === 'channel' ?
-
-								  // <Row>
-								  //   <Col xs={6} md={4}>
-									 //      <Thumbnail className = "channel-card" circle src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'channel'})}>
-									 //        <h3>{result.snippet.title}</h3>
-									 //        <p>{result.snippet.description}</p>
-									 //        <p>
-									 //          <Link to = {'/channel/' + result.snippet.channelId}>
-									 //          		<Button bsStyle="default">Visit Channel</Button>
-									 //          </Link>
-									 //        </p>
-									 //      </Thumbnail>
-								  //   </Col>
-								  // </Row>
 								  <Card className = "channel-card">
 							        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
 							        <CardBody className='body'>
 							          <CardTitle className='title'>{result.snippet.title}</CardTitle>
 							          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
 							        	<Link to = {'/channel/' + result.snippet.channelId}>
-							          		<Button bsStyle="default">Visit Channel</Button>
+							          		<Button bsStyle="default" onClick={() => {delete_cookie('title');}}>Visit Channel</Button>
 							          </Link>
 							        
 							        </CardBody>
@@ -127,106 +65,44 @@ class List extends Component {
 								:
 
 								  type === 'video' ?
-								  // <Row>
-								  //   <Col xs={6} md={4}>
-								  //     	<Thumbnail className = "video-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.videoId, type: 'video'})}>
-									 //        <h3>{result.snippet.title}</h3>
-									 //        <p>{result.snippet.channelTitle} {ago}</p>
-									 //        <p>
-									 //        	<Link to = {'/videoplay/'+ type + '/' + id + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
-										//           <Button bsStyle="danger">Play Video</Button>
-										//         </Link>
-									 //          &nbsp;
-									 //          	<Link to = {'/channel/' + result.snippet.channelId}>
-									 //          		<Button bsStyle="default">Visit Channel</Button>
-									 //          	</Link>
-									 //        </p>
-									 //      </Thumbnail>
-								  //   </Col>
-								  // </Row>
 								  <Card className = "video-card">
 							        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
 							        <CardBody className='body'>
 							          <CardTitle className='title'>{result.snippet.title}</CardTitle>
 							          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
 							        	<Link to = {'/videoplay/'+ type + '/' + id + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId} >
-								          <Button bsStyle="danger">Play Video</Button>
+								          <Button bsStyle="danger" onClick={() => {delete_cookie('title');}}>Play Video</Button>
 								        </Link>
 							          &nbsp;
 							          	<Link to = {'/channel/' + result.snippet.channelId}>
-							          		<Button bsStyle="default">Visit Channel</Button>
+							          		<Button bsStyle="default" onClick={() => {delete_cookie('title');}}>Visit Channel</Button>
 							          	</Link>
 							        
 							        </CardBody>
 							      </Card>
 								:
-								  // <Row>
-								  //   <Col xs={6} md={4}>
-								  //     <Thumbnail className = "playlist-card" src={result.snippet.thumbnails.medium.url} alt="242x200" onClick = {() => this.setState({clickedId: result.id.playlistId, type: 'playlist'})}>
-								  //       <h3>{result.snippet.title}</h3>
-								  //       <p>{result.snippet.channelTitle}</p>
-								  //       <p>{result.snippet.description}</p>
-								  //       <p>
-									 //        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
-										//           <Button bsStyle="danger">Play Playlist</Button>
-										//         </Link>
-									 //          &nbsp;
-									 //          	<Link to = {'/channel/' + result.snippet.channelId}>
-									 //          		<Button bsStyle="default">Visit Channel</Button>
-									 //          	</Link>
-									 //        </p>
-								  //     </Thumbnail>
-								  //   </Col>
-								  // </Row>	
 								  <Card className = "playlist-card">
 							        <CardImg className='image' top width="100%" src={result.snippet.thumbnails.medium.url} alt="Card image cap" />
 							        <CardBody className='body'>
 							          <CardTitle className='title'>{result.snippet.title}</CardTitle>
 							          <CardSubtitle className='sub-title'>{result.snippet.channelTitle} {ago}</CardSubtitle>
 							        	<Link to = {'/videoplay/'+ type + '/' + result.id.playlistId + '/' + result.snippet.channelTitle + '/' + result.snippet.channelId}>
-								          <Button bsStyle="danger">Play Playlist</Button>
+								          <Button bsStyle="danger" onClick={() => {delete_cookie('title');}}>Play Playlist</Button>
 								        </Link>
 							          &nbsp;
 							          	<Link to = {'/channel/' + result.snippet.channelId}>
-							          		<Button bsStyle="default">Visit Channel</Button>
+							          		<Button bsStyle="default" onClick={() => {delete_cookie('title');}}>Visit Channel</Button>
 							          	</Link>
 							        
 							        </CardBody>
 							      </Card>						
 							}
 							<hr></hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-							
-
-
-
-
-
 							</div>
-
 						)
 					})}
 					</div>
-		
 			)
-		// }
-		
 	}
 }
 

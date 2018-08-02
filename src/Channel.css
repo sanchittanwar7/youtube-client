@@ -2,20 +2,27 @@
 	display: flex;
 	width: 70%;
 	margin: auto;
+	margin-top: 48px;
+	margin-bottom: 48px;
 }
 
 .header-info{
 	color: #a8a8a8;
-	padding: 5%;
+	padding-left: 50px;
 	box-sizing: border-box;
 }
 
-.header-info h4{
+.header-info p{
 	color: #939393;
+	font-style: italic;
+}
+
+.header-info h2{
+	color: white;
 }
 
 .header-image img{
 	border-radius: 50%;
-	padding: 10%;
+	padding: 25%;
 	box-sizing: border-box;
 }

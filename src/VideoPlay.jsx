@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './VideoPlay.css'
+import Header from './Header'
 import { Button, DropdownButton, MenuItem } from 'react-bootstrap'
 import { Player } from 'video-react';
 import {Link} from 'react-router'
@@ -69,6 +70,10 @@ class VideoPlay extends Component {
 		else
 			URL = `http://www.youtube.com/embed?listType=playlist&list=${id}&autoplay=1&loop=1`
 		return(
+			<div>
+			<Header 
+				no = 'true'	
+			/>
 			<div className = "video">
 				<div className = "player">
 					<iframe width="1280" height="720" src={URL} frameBorder="0" allowFullScreen></iframe>
@@ -103,6 +108,7 @@ class VideoPlay extends Component {
 						<div></div>
 				}
                 <Alert stack={{limit: 3}} />
+			</div>
 			</div>
 		)
 	}
