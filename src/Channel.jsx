@@ -26,6 +26,7 @@ class Channel extends Component {
 		.then(json => {
 			console.log(json)
 			this.setState({video_info: json})
+			console.log(this.state.video_info)
 			// const artist = json.artist;
 			// this.setState({artist, stats: artist.stats, bio: artist.bio, images: artist.image});
 		});
@@ -67,7 +68,7 @@ class Channel extends Component {
 				}
 
 				<List
-					data = {this.state.video_info}
+					data = {this.state.video_info === null ? [] : this.state.video_info.items}
 				/>
 			</div>
 		)

@@ -23,17 +23,17 @@ class List extends Component {
 		if(this.props.data === null)
 			return(<div></div>)
 		else
-		    results = this.props.data.items || []
+		    results = this.props.data || []
 			return (
 					
 					<div className="list">
-					{
+					{/* {
 						this.props.data.pageInfo !== undefined ?
 							<div style={{marginLeft: 10}}><h4>About {this.props.data.pageInfo.totalResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Results</h4><hr></hr></div>
 						:
 							<h3></h3>
 
-					}
+					} */}
 					{results.map((result, k) => {
 						let type = result.id.kind === undefined ? result.kind.split('#')[1] : result.id.kind.split('#')[1]
 						let year = result.snippet.publishedAt.split('-')[0]

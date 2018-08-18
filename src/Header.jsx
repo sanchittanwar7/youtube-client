@@ -75,7 +75,7 @@ export default class Header extends Component{
 				{
 					this.state.data.length !== 0 ? 
 					<List 
-						data = {this.state.data}
+						data = {this.state.data.items}
 					/>
 					:
 				
